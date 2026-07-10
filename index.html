@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WorkSense.ME — Workplace Intelligence Platform for the GCC</title>
+<meta name="description" content="WorkSense.ME is a workplace intelligence platform delivering strategic procurement advisory, global sourcing, and manufacturer representation across the GCC.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  /* ---- Hero ---- */
+  .hero{ position:relative; min-height:100vh; display:flex; align-items:center; padding-top:130px; padding-bottom:60px; }
+  .hero .wrap{ display:grid; grid-template-columns:minmax(0,0.55fr) minmax(0,1.45fr); gap:56px; align-items:center; }
+  @media(max-width:960px){ .hero .wrap{ grid-template-columns:1fr; } }
+  .hero h1{ margin-bottom:26px; font-size:clamp(2rem, 3.6vw, 3.1rem); overflow-wrap:break-word; }
+  .hero h1 .accent{ color:var(--gold-dim); }
+  .hero .lede{ max-width:520px; margin-bottom:38px; }
+  .hero-visual{
+    position:relative; aspect-ratio:1050/590; background:#FFFFFF;
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+  }
+  .hero-visual video{ width:100%; height:100%; object-fit:contain; display:block; }
+
+  /* ---- Marquee stat strip ---- */
+  .stat-strip{ display:grid; grid-template-columns:repeat(4,1fr); border-top:1.5px solid var(--line); border-bottom:1.5px solid var(--line); }
+  @media(max-width:760px){ .stat-strip{ grid-template-columns:1fr 1fr; } }
+  .stat-strip .cell{ padding:32px 28px; border-right:1.5px solid var(--line); }
+  .stat-strip .cell:last-child{ border-right:none; }
+  @media(max-width:760px){ .stat-strip .cell:nth-child(2n){ border-right:none; } .stat-strip .cell{ border-bottom:1.5px solid var(--line); } .stat-strip .cell:nth-last-child(-n+2){ border-bottom:none; } }
+
+  /* ---- What we do — bold grid ---- */
+  .cap-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:2px; background:var(--line); border:1.5px solid var(--line); margin-top:56px; }
+  @media(max-width:980px){ .cap-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media(max-width:560px){ .cap-grid{ grid-template-columns:1fr; } }
+  .cap-cell{ background:var(--white); padding:38px 28px; transition:background .3s var(--ease); }
+  .cap-cell:hover{ background:var(--tint); }
+  .cap-cell .num{ font-family:var(--font-display); font-weight:900; color:var(--platinum); font-size:2rem; display:block; margin-bottom:20px; }
+  .cap-cell h3{ margin-bottom:10px; font-size:1.05rem; }
+  .cap-cell p{ font-size:0.88rem; }
+
+  /* ---- Why worksense ---- */
+  .why-grid{ display:grid; grid-template-columns:0.9fr 1.1fr; gap:64px; align-items:start; }
+  @media(max-width:860px){ .why-grid{ grid-template-columns:1fr; gap:44px; } }
+  .why-list{ display:grid; grid-template-columns:1fr 1fr; gap:2px; background:var(--line); border:1.5px solid var(--line); }
+  @media(max-width:600px){ .why-list{ grid-template-columns:1fr; } }
+  .why-list .item{ background:var(--white); padding:30px 26px; }
+  .why-list h4{ font-family:var(--font-display); font-size:0.98rem; font-weight:800; color:var(--navy); margin-bottom:8px; }
+  .why-list p{ font-size:0.85rem; }
+
+  /* ---- Divisions ---- */
+  .div-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  @media(max-width:900px){ .div-grid{ grid-template-columns:1fr 1fr; } }
+  @media(max-width:600px){ .div-grid{ grid-template-columns:1fr; } }
+  .div-tile{ padding:36px 30px; min-height:250px; display:flex; flex-direction:column; justify-content:space-between; }
+  .div-tile .tag{ font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold-dim); font-weight:700; }
+  .div-tile h3{ margin-top:16px; margin-bottom:12px; }
+  .div-tile p{ font-size:0.88rem; }
+  .div-tile .arrow{ margin-top:22px; display:inline-flex; align-items:center; gap:8px; font-size:0.78rem; color:var(--navy); font-weight:700; }
+
+  /* ---- Industries ---- */
+  .ind-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:2px; background:var(--line); border:1.5px solid var(--line); margin-top:48px; }
+  @media(max-width:900px){ .ind-grid{ grid-template-columns:repeat(2,1fr); } }
+  .ind-cell{ background:var(--white); padding:30px 24px; font-family:var(--font-display); font-weight:700; font-size:1.05rem; color:var(--navy); transition:background .3s, color .3s; display:flex; align-items:center; gap:16px; }
+  .ind-cell:hover{ background:var(--navy); color:var(--white); }
+  .ind-icon{ width:26px; height:26px; flex:none; color:var(--gold-dim); transition:color .3s; }
+  .ind-cell:hover .ind-icon{ color:var(--gold); }
+  .ind-cell.more{ color:var(--platinum-dim); font-weight:600; font-size:0.95rem; font-style:italic; cursor:default; }
+  .ind-cell.more:hover{ background:var(--white); color:var(--platinum-dim); }
+
+  /* ---- Partner ---- */
+  .partner-split{ display:grid; grid-template-columns:1.1fr 0.9fr; }
+  @media(max-width:900px){ .partner-split{ grid-template-columns:1fr; } }
+  .partner-copy{ padding:clamp(56px,7vw,96px) var(--gutter); }
+  .partner-panel{ background:var(--navy); color:var(--white); padding:clamp(56px,7vw,96px) var(--gutter); }
+  .partner-steps{ display:flex; flex-direction:column; margin-top:30px; }
+  .partner-steps .step{ display:flex; gap:16px; padding:18px 0; border-top:1.5px solid var(--line); }
+  .partner-steps .step .idx{ font-family:var(--font-display); color:var(--gold-dim); font-weight:800; flex:none; width:26px; }
+  .partner-steps .step h4{ font-size:0.95rem; color:var(--navy); font-weight:800; margin-bottom:4px; }
+  .partner-steps .step p{ font-size:0.85rem; }
+  .form-row{ display:flex; flex-direction:column; gap:16px; margin-top:26px; }
+  .form-row input, .form-row textarea{ background:transparent; border:none; border-bottom:1.5px solid rgba(255,255,255,0.25); color:var(--white); font-family:var(--font-body); font-size:0.92rem; padding:12px 2px; outline:none; transition:border-color .3s; width:100%; }
+  .form-row input::placeholder, .form-row textarea::placeholder{ color:rgba(255,255,255,0.45); }
+  .form-row input:focus, .form-row textarea:focus{ border-color:var(--gold); }
+
+  /* ---- Insights ---- */
+  .insight-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  @media(max-width:860px){ .insight-grid{ grid-template-columns:1fr; } }
+  .insight-tile{ display:flex; flex-direction:column; height:100%; }
+  .insight-tile .kicker{ font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold-dim); font-weight:700; margin-bottom:16px; display:block; }
+  .insight-tile h3{ font-size:1.15rem; margin-bottom:14px; }
+  .insight-tile p{ font-size:0.88rem; margin-bottom:22px; }
+  .insight-tile .read{ margin-top:auto; font-size:0.78rem; color:var(--platinum-dim); font-weight:600; border-top:1.5px solid var(--line); padding-top:16px; }
+
+  .cta-final{ text-align:center; padding:clamp(80px,12vw,140px) 0; }
+  .cta-final h2{ max-width:760px; margin:0 auto 34px; }
+  .cta-final .btn-row{ justify-content:center; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <span class="brand-mark"><img src="assets/logo-plaque.png" alt="WorkSense.ME"></span>
+      <span class="brand-word">WorkSense</span>
+      <span class="brand-tag">Workplace Intelligence</span>
+    </a>
+    <div class="nav-links">
+      <a href="about.html">About</a>
+      <a href="services.html">Services</a>
+      <a href="index.html#industries">Industries</a>
+      <a href="partner.html">Partner Program</a>
+      <a href="index.html#insights">Insights</a>
+    </div>
+    <a href="contact.html" class="btn btn-navy nav-cta">Contact Us</a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><svg width="18" height="12" viewBox="0 0 18 12" fill="none"><path d="M0 1H18M0 11H18" stroke="currentColor" stroke-width="1.6"/></svg></button>
+  </div>
+</nav>
+
+<div class="mobile-menu">
+  <a href="about.html">About</a>
+  <a href="services.html">Services</a>
+  <a href="index.html#industries">Industries</a>
+  <a href="partner.html">Partner Program</a>
+  <a href="index.html#insights">Insights</a>
+  <a href="contact.html" class="btn btn-navy">Contact Us</a>
+</div>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <span class="eyebrow">Workplace Intelligence Platform </span>
+      <h1 style="margin-top:24px;">Intelligence Behind Every <span class="accent">Workplace</span></h1>
+      <p class="lede">Helping organizations across the GCC source, evaluate, and implement world-class workplace solutions through strategic procurement intelligence and global manufacturer partnerships.</p>
+      <div class="btn-row">
+        <a href="contact.html" class="btn btn-navy">Contact Us</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <video autoplay muted loop playsinline poster="assets/hero-video-poster.jpg">
+        <source src="assets/hero-video.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</header>
+
+<!-- ===== STAT STRIP ===== -->
+<section class="stat-strip">
+  <div class="cell reveal"><span class="stat"><span class="num">20+</span><span class="label">Years GCC Experience</span></span></div>
+  <div class="cell reveal"><span class="stat"><span class="num">5</span><span class="label">Service Divisions</span></span></div>
+  <div class="cell reveal"><span class="stat"><span class="num">7</span><span class="label">Industries Served</span></span></div>
+  <div class="cell reveal"><span class="stat"><span class="num">Global</span><span class="label">Manufacturer Network</span></span></div>
+</section>
+
+<!-- ===== WHAT WE DO ===== -->
+<section class="section-pad hair-bottom">
+  <div class="wrap">
+    <span class="eyebrow reveal">What We Do</span>
+    <h2 class="reveal" style="margin-top:22px; max-width:680px;">Five disciplines, one workplace intelligence practice</h2>
+    <p class="lede reveal" style="margin-top:20px; max-width:600px;">We operate at the intersection of strategy and sourcing — advising organizations on workplace decisions, and connecting global manufacturers to GCC opportunity.</p>
+
+    <div class="cap-grid stagger">
+      <div class="cap-cell reveal"><span class="num">01</span><h3>Workplace Advisory</h3><p>Strategic guidance on workplace decisions, standards, and long-term planning.</p></div>
+      <div class="cap-cell reveal"><span class="num">02</span><h3>Global Sourcing</h3><p>Access to vetted international manufacturers and supply networks.</p></div>
+      <div class="cap-cell reveal"><span class="num">03</span><h3>Procurement Intelligence</h3><p>Market data and evaluation frameworks that de-risk major decisions.</p></div>
+      <div class="cap-cell reveal"><span class="num">04</span><h3>Manufacturer Representation</h3><p>On-the-ground representation for brands entering the GCC market.</p></div>
+      <div class="cap-cell reveal"><span class="num">05</span><h3>Project Support</h3><p>Coordination and delivery oversight from specification to install.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHY WORKSENSE ===== -->
+<section class="section-pad tint">
+  <div class="wrap why-grid">
+    <div>
+      <span class="eyebrow reveal">Why WorkSense</span>
+      <h2 class="reveal" style="margin-top:22px;">Two decades of regional intelligence, applied to every engagement</h2>
+      <p class="lede reveal" style="margin-top:20px;">Frameworks, relationships, and market fluency built specifically for GCC workplace decisions.</p>
+    </div>
+    <div class="why-list">
+      <div class="item reveal"><h4>Strategic Procurement Expertise</h4><p>Frameworks built for complex, multi-stakeholder workplace decisions.</p></div>
+      <div class="item reveal"><h4>Global Manufacturer Network</h4><p>Direct relationships across established and emerging manufacturing regions.</p></div>
+      <div class="item reveal"><h4>Regional Market Intelligence</h4><p>On-the-ground understanding of GCC procurement culture and regulation.</p></div>
+      <div class="item reveal"><h4>Workplace Innovation</h4><p>Forward-looking perspective on how workplaces will need to perform.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICE DIVISIONS ===== -->
+<section class="section-pad hair-top hair-bottom">
+  <div class="wrap">
+    <span class="eyebrow reveal">Service Divisions</span>
+    <h2 class="reveal" style="margin-top:22px; max-width:600px;">A platform built in five parts</h2>
+    <div class="div-grid" style="margin-top:52px;">
+      <div class="tile div-tile reveal"><div><span class="tag">Advisory</span><h3>WorkSense Advisory</h3><p>Independent strategic guidance for workplace and procurement decisions.</p></div><span class="arrow"></span></div>
+      <div class="tile div-tile reveal"><div><span class="tag">Sourcing</span><h3>WorkSense Source</h3><p>Global sourcing across vetted manufacturer and supply networks.</p></div><span class="arrow"></span></div>
+      <div class="tile div-tile reveal"><div><span class="tag">Representation</span><h3>WorkSense Represent</h3><p>Regional representation for manufacturers entering the GCC.</p></div><span class="arrow"></span></div>
+      <div class="tile div-tile reveal"><div><span class="tag">Delivery</span><h3>WorkSense Projects</h3><p>Coordination and oversight from specification through to install.</p></div><span class="arrow"></span></div>
+      <div class="tile div-tile reveal"><div><span class="tag">Intelligence</span><h3>WorkSense Insights</h3><p>Market reports and thought leadership on GCC workplace trends.</p></div><span class="arrow"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== INDUSTRIES ===== -->
+<section id="industries" class="section-pad">
+  <div class="wrap">
+    <span class="eyebrow reveal">Industries We Serve</span>
+    <h2 class="reveal" style="margin-top:22px; max-width:600px;">Trusted across the sectors that shape the region</h2>
+    <div class="ind-grid">
+      <div class="ind-cell reveal"><svg class="ind-icon" viewBox="0 0 24 24" fill="none"><rect x="4" y="9" width="16" height="11" stroke="currentColor" stroke-width="1.5"/><path d="M9 9V6a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-width="1.5"/></svg><span>Corporate</span></div>
+      <div class="ind-cell reveal"><svg class="ind-icon" viewBox="0 0 24 24" fill="none"><path d="M4 21H20M5 21V10L12 5L19 10V21M9 21V14H15V21" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span>Government</span></div>
+      <div class="ind-cell reveal"><svg class="ind-icon" viewBox="0 0 24 24" fill="none"><path d="M3 10L12 4L21 10M5 10V20H19V10M9 20V14H15V20" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span>Banking</span></div>
+      <div class="ind-cell reveal"><svg class="ind-icon" viewBox="0 0 24 24" fill="none"><path d="M12 21S4 15.5 4 9.8C4 6.6 6.5 4.5 9 5.2C10.3 5.6 11.4 6.6 12 8C12.6 6.6 13.7 5.6 15 5.2C17.5 4.5 20 6.6 20 9.8C20 15.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span>Healthcare</span></div>
+      <div class="ind-cell reveal"><svg class="ind-icon" viewBox="0 0 24 24" fill="none"><path d="M2 8L12 3L22 8L12 13L2 8Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M6 11V16C6 17.5 8.5 19 12 19C15.5 19 18 17.5 18 16V11" stroke="currentColor" stroke-width="1.5"/></svg><span>Education</span></div>
+      <div class="ind-cell reveal"><svg class="ind-icon" viewBox="0 0 24 24" fill="none"><rect x="6" y="6" width="12" height="12" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M9 3V6M15 3V6M9 18V21M15 18V21M3 9H6M3 15H6M18 9H21M18 15H21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><span>Technology</span></div>
+      <div class="ind-cell reveal"><svg class="ind-icon" viewBox="0 0 24 24" fill="none"><path d="M3 20V6L12 4L21 6V20" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M3 20H21M8 20V13H16V20" stroke="currentColor" stroke-width="1.5"/></svg><span>Hospitality</span></div>
+      <div class="ind-cell more reveal"><span class="more-text">Much more!</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== GLOBAL PARTNER PROGRAM ===== -->
+<section class="section-pad hair-top hair-bottom">
+  <div class="wrap" style="max-width:760px;">
+    <span class="eyebrow reveal">Global Partner Program</span>
+    <h2 class="reveal" style="margin-top:22px;">Built for manufacturers entering the GCC</h2>
+    <p class="lede reveal" style="margin-top:20px;">WorkSense gives international manufacturers a direct, informed route into one of the world's fastest-growing workplace markets — backed by two decades of regional relationships.</p>
+    <div class="partner-steps">
+      <div class="step reveal"><span class="idx">01</span><div><h4>Why GCC</h4><p>Understand the scale and trajectory of regional demand.</p></div></div>
+      <div class="step reveal"><span class="idx">02</span><div><h4>How WorkSense Helps</h4><p>Representation, intelligence, and demand generation in one partner.</p></div></div>
+      <div class="step reveal"><span class="idx">03</span><div><h4>Market Entry Process</h4><p>A structured path from introduction to first project.</p></div></div>
+      <div class="step reveal"><span class="idx">04</span><div><h4>Partner Benefits</h4><p>Dedicated business development and regional growth support.</p></div></div>
+    </div>
+    <a href="contact.html" class="btn btn-navy reveal" style="margin-top:36px;">Contact Us</a>
+  </div>
+</section>
+
+<!-- ===== INSIGHTS ===== -->
+<section id="insights" class="section-pad">
+  <div class="wrap">
+    <span class="eyebrow reveal">Workplace Insights</span>
+    <h2 class="reveal" style="margin-top:22px; max-width:600px;">Intelligence, published</h2>
+    <p class="lede reveal" style="margin-top:20px; max-width:600px;">Market reports, industry analysis, and thought leadership on the forces shaping GCC workplaces.</p>
+    <div class="insight-grid" style="margin-top:52px;">
+      <div class="tile insight-tile reveal"><span class="kicker">Market Report</span><h3>The State of GCC Workplace Procurement, 2026</h3><p>A regional outlook on demand, sourcing patterns, and the shift toward strategic procurement.</p><div class="read"></div></div>
+      <div class="tile insight-tile reveal"><span class="kicker">Industry Intelligence</span><h3>Why Manufacturer Representation Beats Direct Entry</h3><p>What two decades of GCC market entries tell us about the fastest path to traction.</p><div class="read"></div></div>
+      <div class="tile insight-tile reveal"><span class="kicker">Thought Leadership</span><h3>Workplace Strategy in a Post-Hybrid Region</h3><p>How GCC organizations are rethinking workplace investment as ways of working evolve.</p><div class="read"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="cta-final dark hair-top">
+  <div class="wrap">
+    <span class="eyebrow reveal">Let's Talk</span>
+    <h2 class="reveal" style="margin-top:22px; color:var(--white);">Let's build smarter workplaces together</h2>
+    <div class="btn-row reveal" style="margin-top:38px;">
+      <a href="contact.html" class="btn" style="background:var(--gold); color:var(--navy);">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <a href="index.html" class="brand" style="margin-bottom:14px;">
+          <span class="brand-mark"><img src="assets/logo-plaque.png" alt="WorkSense.ME"></span>
+          <span class="brand-word" style="color:#fff;">worksense</span>
+        </a>
+        <p style="margin-top:16px; max-width:260px;">A Workplace Intelligence Platform for the GCC — strategic advisory, global sourcing, and manufacturer representation.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="about.html">About Us</a>
+        <a href="services.html">Services</a>
+        <a href="partner.html">Partner Program</a>
+        <a href="index.html#industries">Industries</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="index.html#insights">Insights</a>
+        <a href="index.html#insights">Market Reports</a>
+        <a href="index.html#insights">Blog</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:info@worksense.me">info@worksense.me</a>
+        <a href="tel:+971503015124">+971 503015124</a>
+        <p>Dubai, United Arab Emirates</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span class="year"></span> WorkSense.ME — Workplace Intelligence Platform</span>
+      <span></span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/main.js"></script>
+</body>
+</html>
